@@ -72,7 +72,7 @@ public class PollableSourceRunner extends SourceRunner {
 
     runner = new PollingRunner();
 
-    runner.source = source;
+    runner.source = source; //Source实现类就在这里被赋与
     runner.counterGroup = counterGroup;
     runner.shouldStop = shouldStop;
 
@@ -126,6 +126,7 @@ public class PollableSourceRunner extends SourceRunner {
     public void run() {
       logger.debug("Polling runner starting. Source:{}", source);
 
+      //执行
       while (!shouldStop.get()) {
         counterGroup.incrementAndGet("runner.polls");
 
@@ -157,6 +158,7 @@ public class PollableSourceRunner extends SourceRunner {
         }
       }
 
+      //退出
       logger.debug("Polling runner exiting. Metrics:{}", counterGroup);
     }
 

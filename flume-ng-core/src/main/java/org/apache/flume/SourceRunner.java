@@ -24,6 +24,7 @@ import org.apache.flume.source.EventDrivenSourceRunner;
 import org.apache.flume.source.PollableSourceRunner;
 
 /**
+ * source运行器 控制source由谁来驱动
  * A source runner controls how a source is driven.
  *
  * This is an abstract class used for instantiating derived classes.

@@ -45,11 +45,13 @@ import java.lang.annotation.Documented;
 @InterfaceStability.Evolving
 public class InterfaceAudience {
   /**
+   * 意向为任何工程or应用使用
    * Intended for use by any project or application.
    */
   @Documented public @interface Public {};
 
   /**
+   * 意向为只为指定应用使用
    * Intended only for the project(s) specified in the annotation.
    * For example, "Common", "HDFS", "MapReduce", "ZooKeeper", "HBase".
    */
@@ -58,6 +60,7 @@ public class InterfaceAudience {
   };
 
   /**
+   * 意向为只对内部使用
    * Intended for use only within Flume
    */
   @Documented public @interface Private {};

@@ -22,6 +22,7 @@ package org.apache.flume;
 import org.apache.flume.source.EventDrivenSourceRunner;
 
 /**
+ * 轮询拉取模型的source
  * A {@link Source} that requires an external driver to poll to determine
  * whether there are {@linkplain Event events} that are available to ingest
  * from the source.
