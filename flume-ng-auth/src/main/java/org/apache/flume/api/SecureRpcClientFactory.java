@@ -21,7 +21,7 @@ package org.apache.flume.api;
 import java.util.Properties;
 
 /**
- * Factory class to construct Flume {@link RPCClient} implementations.
+ * Factory class to construct Flume {@link RpcClient} implementations.
  */
 public class SecureRpcClientFactory {
 

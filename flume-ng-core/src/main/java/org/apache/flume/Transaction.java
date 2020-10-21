@@ -44,7 +44,7 @@ import org.apache.flume.channel.BasicTransactionSemantics;
  * semantics may be strong, or best-effort only.</p>
  *
  * <p>
- * Transactions must be thread safe. To provide  a guarantee of thread safe
+ * Transactions must be thread safe. To provide a guarantee of thread safe
  * access to Transactions, see {@link BasicChannelSemantics} and
  * {@link  BasicTransactionSemantics}.
  *
