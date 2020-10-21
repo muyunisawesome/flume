@@ -53,21 +53,23 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * 启动入口
+ */
 public class Application {
 
-  private static final Logger logger = LoggerFactory
-      .getLogger(Application.class);
+  private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
   public static final String CONF_MONITOR_CLASS = "flume.monitoring.type";
   public static final String CONF_MONITOR_PREFIX = "flume.monitoring.";
 
   private final List<LifecycleAware> components;
-  private final LifecycleSupervisor supervisor;
-  private MaterializedConfiguration materializedConfiguration;
-  private MonitorService monitorServer;
+  private final LifecycleSupervisor supervisor; //生命周期主管
+  private MaterializedConfiguration materializedConfiguration; //物化的配置
+  private MonitorService monitorServer; //监控服务器
 
   public Application() {
-    this(new ArrayList<LifecycleAware>(0));
+    this(new ArrayList<>(0));
   }
 
   public Application(List<LifecycleAware> components) {
@@ -77,8 +79,7 @@ public class Application {
 
   public synchronized void start() {
     for (LifecycleAware component : components) {
-      supervisor.supervise(component,
-          new SupervisorPolicy.AlwaysRestartPolicy(), LifecycleState.START);
+      supervisor.supervise(component, new SupervisorPolicy.AlwaysRestartPolicy(), LifecycleState.START);
     }
   }
 
@@ -228,9 +229,9 @@ public class Application {
 
     try {
 
-      boolean isZkConfigured = false;
+      boolean isZkConfigured = false; //zk是否已配置
 
-      Options options = new Options();
+      Options options = new Options(); //命令行选项
 
       Option option = new Option("n", "name", true, "the name of this agent");
       option.setRequired(true);
@@ -274,24 +275,22 @@ public class Application {
         isZkConfigured = true;
       }
       Application application = null;
-      if (isZkConfigured) {
+      if (isZkConfigured) { //如果配置了zk
         // get options
         String zkConnectionStr = commandLine.getOptionValue('z');
         String baseZkPath = commandLine.getOptionValue('p');
 
-        if (reload) {
+        if (reload) { //是否重加载
           EventBus eventBus = new EventBus(agentName + "-event-bus");
           List<LifecycleAware> components = Lists.newArrayList();
           PollingZooKeeperConfigurationProvider zookeeperConfigurationProvider =
-              new PollingZooKeeperConfigurationProvider(
-                  agentName, zkConnectionStr, baseZkPath, eventBus);
+              new PollingZooKeeperConfigurationProvider(agentName, zkConnectionStr, baseZkPath, eventBus);
           components.add(zookeeperConfigurationProvider);
           application = new Application(components);
           eventBus.register(application);
         } else {
           StaticZooKeeperConfigurationProvider zookeeperConfigurationProvider =
-              new StaticZooKeeperConfigurationProvider(
-                  agentName, zkConnectionStr, baseZkPath);
+              new StaticZooKeeperConfigurationProvider(agentName, zkConnectionStr, baseZkPath);
           application = new Application();
           application.handleConfigurationEvent(zookeeperConfigurationProvider.getConfiguration());
         }
@@ -336,6 +335,7 @@ public class Application {
       }
       application.start();
 
+      //停止钩子
       final Application appReference = application;
       Runtime.getRuntime().addShutdownHook(new Thread("agent-shutdown-hook") {
         @Override

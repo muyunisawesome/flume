@@ -28,6 +28,7 @@ import org.apache.flume.SourceRunner;
 
 import com.google.common.collect.ImmutableMap;
 
+/**简单的物化配置*/
 public class SimpleMaterializedConfiguration implements MaterializedConfiguration {
 
   private final Map<String, Channel> channels;
@@ -62,7 +63,7 @@ public class SimpleMaterializedConfiguration implements MaterializedConfiguratio
 
   @Override
   public ImmutableMap<String, Channel> getChannels() {
-    return ImmutableMap.copyOf(channels);
+    return ImmutableMap.copyOf(channels); //讲究啊，复制过去的
   }
 
   @Override

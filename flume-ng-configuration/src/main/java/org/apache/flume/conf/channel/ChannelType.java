@@ -30,14 +30,14 @@ public enum ChannelType {
 
   /**
    * File channel
-   * @see FileChannel
+   * @see org.apache.flume.channel.file.FileChannel
    */
   FILE("org.apache.flume.channel.file.FileChannel"),
 
   /**
    * Memory channel
    *
-   * @see MemoryChannel
+   * @see org.apache.flume.channel.MemoryChannel
    */
   MEMORY("org.apache.flume.channel.MemoryChannel"),
 

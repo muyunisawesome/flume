@@ -70,10 +70,12 @@ public abstract class AbstractConfigurationProvider implements ConfigurationProv
   private static final Logger LOGGER = LoggerFactory.getLogger(AbstractConfigurationProvider.class);
 
   private final String agentName;
+  //三种组件的工厂类
   private final SourceFactory sourceFactory;
   private final SinkFactory sinkFactory;
   private final ChannelFactory channelFactory;
 
+  //channel缓存<channel类, <channel名字，channel实例>>
   private final Map<Class<? extends Channel>, Map<String, Channel>> channelCache;
 
   public AbstractConfigurationProvider(String agentName) {
